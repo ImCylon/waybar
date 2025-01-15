@@ -12,14 +12,25 @@ window#waybar {
     color: @background;
 }
 
-#workspaces button.active {
-    color: @foreground;
+
+#workspaces button {
+    color: #717171; /* color5 */
+    background-color: rgba(10, 10, 10, 0.95);
+    /* margin: 0 15px 0 0px; */
+    /* top, right, bottom, left */
+    /* padding: 5px 5px 5px 5px;  */
 }
 
+#workspaces button.active{
+    /* color: @foreground; */
+    color: #3399FF; /* color5 */
+    background-color: rgba(10, 10, 10, 0.95);
+    /* margin: 0 15px 0 0px; */
+    /* top, right, bottom, left */
+    /* padding: 5px 5px 5px 5px;  */
+    /* border-bottom: 0.5px solid #ffffff; */
+    /* border-radius: 0px; */
 
-#workspaces {
-    background-color: @background;
-    padding: 0 5.6px 0 0;
 }
 
 .modules-left {
@@ -31,7 +42,6 @@ window#waybar {
 }
 
 #battery,
-#pulseaudio,
 #backlight,
 #custom-weather {
     color: @color5; /* color5 */
@@ -58,10 +68,6 @@ window#waybar {
     color: @color4; /* color4 */
 }
 
-#pulseaudio {
-    color: @color5; /* color5 */
-}
-
 #backlight {
     color: @color5; /* color5 */
 }
@@ -72,9 +78,22 @@ window#waybar {
     padding: 0 15px 0 15px; /* top, right, bottom, left */
 }
 
+#workspaces,
+#tray,
+#custom-emerge,
+#custom-launcher,
+#pulseaudio,
+#clock{
+    color: @color5; /* color5 */
+    background-color: rgba(10, 10, 10, 0.45);
+    margin: 0 5px 0 0px;
+    padding: 0px 1px 0px 3px; /* top, right, bottom, left */
+    border: 0.5px solid #ffffff;
+}
+
 #custom-media {
     color: @color4; /* color2 */
-    background-color: @background; /* background */
+    background-color: #ff0; /* background */
     margin: 0 0px 0 15px;
     padding: 0 15px 0 15px; /* top, right, bottom, left */
 }
