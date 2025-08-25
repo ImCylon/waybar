@@ -1,104 +1,280 @@
 {
+  "output": "DP-1",
+  "reload_style_on_change": true,
   "layer": "top",
   "position": "top",
   "margin-top": 1,
-  "modules-left": ["custom/launcher", "hyprland/workspaces"],
-  "modules-center": ["custom/media", "custom/emerge", "tray"],
-  "modules-right": ["pulseaudio", "clock"],
-
-   "custom/launcher": {
-        "format": "{}",
-        "tooltip": true,
-        "exec": "echo '{\"text\":\"   \",\"tooltip\":\"Drun | Run\"}'",
-        "return-type": "json",
-        "on-click": "pkill tofi || sleep 0.15 && tofi-drun -c ~/.config/tofi/tofi.launcher.conf",
-        "on-click-right": "pkill tofi || sleep 0.15 && tofi-run -c ~/.config/tofi/tofi.launcher.conf",
-    },
-
-  "custom/emerge": {
-    "format": " {}   ",
-    "interval": 1800,
-    "exec": "sudo emerge -pq --update --changed-use --deep @world | grep ebuild | wc -l",
-    "on-click-right": "dunstify -u critical \"EMERGE:\" \"$(sudo emerge -pq --update --changed-use --deep @world | grep ebuild | sed 's/.ebuild.*] //g')\"",  
-    "on-click": "emerge --sync && eix-sync -a && emaint sync -A && emerge -uDN --with-bdeps=y @world && emerge --depclean",  
-    "signal": 8
-  },
-
-  "custom/media": {
-    "format": "{icon}{}",
-    "escape": true,
+  "modules-left": [
+    "custom/gh_heatmap",
+    "custom/launcher",
+    "hyprland/workspaces",
+    //"custom/github",
+    //"custom/cava",
+    "custom/spotify"
+  ],
+  "modules-center": [
+    //"cava",
+    "clock",
+    "custom/emerge",
+    "tray"
+  ],
+  "modules-right": [
+    //"custom/cpu_history",
+    "group/hardware",
+    "group/audio",
+    //"custom/media",
+    "custom/weather"
+  ],
+  "custom/launcher": {
+    "format": "{}",
+    "tooltip": true,
+    "exec": "echo '{\"text\":\"   \",\"tooltip\":\"Drun | Run\"}'",
     "return-type": "json",
-    "max-length": 4,
-    "on-click": "playerctl play-pause",
-    "on-click-right": "playerctl stop",
-    "smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
-    "on-scroll-up": "playerctl next",
-    "on-scroll-down": "playerctl previous",
-    "exec": "$HOME/.config/waybar/scripts/mediaplayer.py 2> /dev/null" // Script in resources/custom_modules folder
+    "on-click": "pkill tofi || sleep 0.15 && tofi-drun -c ~/.config/tofi/tofi.launcher.conf",
+    "on-click-right": "pkill tofi || sleep 0.15 && tofi-run -c ~/.config/tofi/tofi.launcher.conf"
   },
- "tray": {
-    "icon-size": 18,
-    "spacing": 5
-  },
-
-  "battery": {
-    "format": "{icon}  {capacity}%",
-    "format-charging": "󰂄  {capacity}%",
-    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
-  },
-
-  "clock": {
-    "format": "󰥔   {:%H:%M}",
-    "format-alt": "󰥔   {:%a, %d. %b  %H:%M}"
-  },
-
-  "pulseaudio": {
-    "format": "{icon}  {volume}%",
-    "format-bluetooth": "󰂱  {volume}%",
-    "format-muted": "󰖁",
-    "scroll-step": 5,
-    "on-click": "pavucontrol",
-    "ignored-sinks": ["Easy Effects Sink"],
-    "format-icons": {
-      "headphone": "  ",
-      "hands-free": " ",
-      "headset": "󰋎 ",
-      "phone": " ",
-      "portable": " ",
-      "car": "",
-      "default": ["󰖀", "󰕾"]
-    }
-  },
-
-  "network": {
-    "interface": "enp6s0",
-    "format": "{ifname}",
-    "format-wifi": "{icon}   {essid}",
-    "format-ethernet": "󰈀   {ipaddr}/{cidr}",
-    "format-disconnected": "󰤭   disconnected",
-    "max-length": 50,
-    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"]
-  },
-
   "hyprland/workspaces": {
+    "ipc_socket": "/run/user/1000/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket.sock",
     "format": "{}",
     "format-icons": {
       "urgent": "󰀨",
       "active": "",
       "default": ""
     },
-
-        "on-scroll-up": "hyprctl dispatch workspace e-1",
-        "on-scroll-down": "hyprctl dispatch workspace e+1",
-        "on-click": "activate"
+    "on-scroll-up": "hyprctl dispatch workspace e-1",
+    "on-scroll-down": "hyprctl dispatch workspace e+1",
+    "on-click": "activate"
   },
-
+  "custom/gh_heatmap": {
+    "exec": "sleep 1 & ~/.config/waybar/scripts/weekly_commits LIGHT",
+    "return-type": "json",
+    "interval": 2400,
+    "tooltip": true,
+    "on-click": "xdg-open https://github.com/ImCylon",
+    "on-click-right": "~/.config/waybar/scripts/weekly_commits LIGHT"
+  },
+  "custom/github": {
+    "format": "{} ",
+    "return-type": "json",
+    "interval": 60,
+    "exec": "$HOME/.config/waybar/scripts/github.sh",
+    "on-click": "xdg-open https://github.com/notifications"
+  },
+  "custom/cava": {
+    "format": "{text}",
+    "exec": "~/.dotfiles/waybar/scripts/cava_module.py",
+    "return-type": "json",
+    "restart-interval": 1
+  },
+  "clock": {
+    "interval": 1,
+    "format": "{: %H:%M:%S }  ",
+    "format-alt": "{: %H:%M:%S  |  %A, %B %d, %Y }  ",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "tz_up",
+      "on-scroll-down": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+  "custom/emerge": {
+    "format": " {}  📦 ",
+    "interval": 300,
+    "exec": "cat ~/.cache/waybar/emerge-world.txt | wc -l",
+    "on-click": "[[ -s ~/.cache/waybar/emerge-world.txt ]] && dunstify \"UPDATE:\" \"$(cat ~/.cache/waybar/emerge-world.txt)\" || notify-send \"UPDATE:\nSem novas atualizações!\"",
+    "on-click-right": "alacritty -e zsh -c 'sudo emerge --sync && sudo eix-sync -a && sudo emaint sync -A && sudo emerge -uvaDN --with-bdeps=y @world && sudo emerge --depclean; exec zsh' && $HOME/.dotfiles/waybar/scripts/emerge-update.sh",
+    "on-click-middle": "/home/imcylon/.config/waybar/scripts/emerge-update.sh",
+    "signal": 8
+  },
+  "tray": {
+    "icon-size": 21,
+    "spacing": 12
+    //  // "icons": {
+    //  // "blueman": "bluetooth"
+    //  // "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+    //  // }
+  },
+  "pulseaudio": {
+    "format": "{icon}   {volume}%",
+    "format-bluetooth": "{icon}   {volume}%",
+    "format-muted": "🔇",
+    "format-icons": {
+      "default": [
+        "🔈",
+        "🔉",
+        "🔊"
+      ]
+    },
+    "scroll-step": 5,
+    "on-click-right": "pavucontrol",
+    "ignored-sinks": [
+      "Easy Effects Sink"
+    ]
+  },
+  "bluetooth": {
+    "format": "  ┃  {status}",
+    "format-connected": "  ┃  {device_alias}",
+    "format-connected-battery": "  ┃  {device_alias} {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+  },
+  "network": {
+    "interface": "enp6s0",
+    "format-ethernet": "󰤯 {ifname} {ipaddr}",
+    "format-disconnected": "󰤭 Desconectado",
+    "tooltip": true,
+    "tooltip-format-ethernet": "{ifname} ({ipaddr})",
+    "on-click": "gnome-terminal -- nmtui",
+    "on-click-right": "~/.config/rofi/scripts/network.sh"
+  },
   "backlight": {
     "device": "intel_backlight",
     "format": "{icon}   {percent}%",
-    "format-icons": ["󰃞", "󰃟", "󰃠"]
+    "format-icons": [
+      "󰃞",
+      "󰃟",
+      "󰃠"
+    ]
   },
-
+  //"cava": {
+  //  //"cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
+  //  "interval": 0.05,
+  //  "framerate": 60,
+  //  "autosens": 1,
+  //  "sensitivity": 10,
+  //  "bars": 10,
+  //  "lower_cutoff_freq": 50,
+  //  "higher_cutoff_freq": 10000,
+  //  "hide_on_silence": false,
+  //  // "format_silent": "quiet",
+  //  "method": "pulse",
+  //  "source": "auto",
+  //  "stereo": true,
+  //  "reverse": false,
+  //  "bar_delimiter": 0,
+  //  "monstercat": false,
+  //  "waves": false,
+  //  "noise_reduction": 0.77,
+  //  "input_delay": 2,
+  //  "format-icons": [
+  //    "▁",
+  //    "▂",
+  //    "▃",
+  //    "▄",
+  //    "▅",
+  //    "▆",
+  //    "▇",
+  //    "█"
+  //  ],
+  //  "actions": {
+  //    "on-click-right": "mode"
+  //  }
+  //},
+  "group/hardware": {
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": true,
+      "click-to-reveal": true,
+      "children-class": "drawer-child"
+    },
+    "orientation": "inherit",
+    "tooltip": true,
+    "modules": [
+      "cpu",
+      "load",
+      "memory"
+    ]
+  },
+  "cpu": {
+    "interval": 2,
+    "format": "CPU: {usage}% {icon}",
+    "format-alt": "CPU: {usage}% {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8}{icon9}{icon10}{icon11}{icon12}{icon13}{icon14}{icon15}",
+    "format-icons": [
+      "<span color='#00ff00'>▁</span>", // verde claro
+      "<span color='#33ff00'>▂</span>",
+      "<span color='#66ff00'>▃</span>",
+      "<span color='#99ff00'>▄</span>",
+      "<span color='#ccff00'>▅</span>", // amarelado
+      "<span color='#ffff00'>▆</span>", // amarelo puro
+      "<span color='#ffcc00'>▇</span>", // laranja claro
+      "<span color='#ff6600'>█</span>" // vermelho intenso
+    ],
+    "states": {
+      "critical": 90
+    }
+  },
+  "load": {
+    "interval": 1,
+    "format": " ┃ LOAD: {load1}",
+    "format-alt": " ┃ LOAD: {load1} {load5} {load15}"
+  },
+  "memory": {
+    "interval": 30,
+    "format": "┃ MEM: {used:0.1f}G/{total:0.1f}G"
+  },
+  "group/audio": {
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": true,
+      "click-to-reveal": true,
+      "children-class": "drawer-child"
+    },
+    "orientation": "inherit",
+    "tooltip": true,
+    "modules": [
+      "pulseaudio",
+      "bluetooth"
+    ]
+  },
+  "custom/spotify": {
+    "format": "{}",
+    "escape": true,
+    "return-type": "json",
+    "max-length": 40,
+    "on-click": "playerctl -p spotify play-pause",
+    "on-click-right": "killall spotify",
+    "smooth-scrolling-threshold": 10,
+    "on-scroll-up": "playerctl -p spotify next",
+    "on-scroll-down": "playerctl -p spotify previous",
+    "exec": "/home/imcylon/.dotfiles/waybar/scripts/mediaplayer.py",
+    "exec-if": "pgrep spotify"
+  },
+  "custom/media": {
+    "format": "  {}",
+    "escape": true,
+    "return-type": "json",
+    "max-length": 20,
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl -l",
+    "smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous",
+    "exec": "/home/imcylon/.dotfiles/waybar/scripts/mediaplayer.py" // Script in resources/custom_modules folder
+  },
+  //"custom/cpu_history": {
+  //  "exec": "/home/imcylon/.dotfiles/waybar/scripts/cpu_history.py -d 60",
+  //  "format": "<span color='#FFA500'>   </span>{}",
+  //  "interval": 1,
+  //  "return-type": "json",
+  //  "on-click": "~/.config/waybar/scripts/cpu_history.py toggle"
+  //},
   "custom/weather": {
     "exec": "${HOME}/.config/waybar/scripts/get_weather.sh",
     "return-type": "json",

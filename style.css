@@ -1,10 +1,9 @@
-/* @import url("/home/user0/.cache/wal/colors-waybar.css"); */
+@import url("/home/imcylon/.config/waybar/colors.css");
 
 * {
     font-family: 'Radio Canada Big', sans-serif;
     font-weight: bold;
-    font-size: 16px;
-    border-radius: 10px;
+    font-size: 19px;
 }
 
 window#waybar {
@@ -12,25 +11,101 @@ window#waybar {
     color: @background;
 }
 
+#hardware {
+    color: @surface_tint;
+    background-color: @background80;
+    border-color: @surface_tint;
+    border-style: solid;
+    border-width: 1px 1px 3px 1px;
+    border-radius: 16px;
+    margin-right: 6px;
+    margin-left: 6px;
+    padding: 0px 15px 0px 15px;
+}
+
+#audio {
+    color: @surface_tint;
+    background-color: @background80;
+    border-color: @surface_tint;
+    border-style: solid;
+    border-width: 1px 1px 3px 1px;
+    border-radius: 16px;
+    margin-right: 6px;
+    margin-left: 6px;
+    padding: 0px 15px 0px 15px;
+}
+
+#custom-launcher,
+#workspaces,
+#workspaces button,
+#clock,
+#custom-emerge,
+#tray,
+#custom-spotify,
+#custom-media,
+#custom-cpu_history,
+#custom-cava,
+/* #pulseaudio, */
+/* #bluetooth, */
+/* #cpu, */
+/* #load, */
+/* #memory, */
+#custom-weather
+{
+    color: @surface_tint;
+    background-color: @background80;
+    border-color: @surface_tint;
+    border-style: solid;
+    border-width: 1px 1px 3px 1px;
+    border-radius: 18px;
+    margin-right: 6px;
+    margin-left: 6px;
+}
+
+#custom-launcher {
+    margin: 0px 5px 0px 0px;
+    padding: 5px 15px 5px 15px;
+}
+
+#workspaces {
+    padding: 0px 0px 0px 0px;
+}
 
 #workspaces button {
-    color: #717171; /* color5 */
-    background-color: rgba(10, 10, 10, 0.95);
-    /* margin: 0 15px 0 0px; */
-    /* top, right, bottom, left */
-    /* padding: 5px 5px 5px 5px;  */
+    margin: 0px 0px 0px 0px;
+    padding: 0px 15px 0px 15px;
+    border-width: 0px;
+    background: transparent;
 }
 
 #workspaces button.active{
-    /* color: @foreground; */
-    color: #3399FF; /* color5 */
-    background-color: rgba(10, 10, 10, 0.95);
-    /* margin: 0 15px 0 0px; */
-    /* top, right, bottom, left */
-    /* padding: 5px 5px 5px 5px;  */
-    /* border-bottom: 0.5px solid #ffffff; */
-    /* border-radius: 0px; */
+    color: @surface_dim;
+    padding: 0px 20px 0px 20px;
+    background: @surface_tint;
+}
+#custom-spotify {
+    font-size: 12px;
+}
 
+#custom-weather {
+    background-color: @background80;
+}
+
+#clock,
+#custom-emerge,
+#tray,
+#custom-spotify,
+#custom-media,
+#custom-cpu_history,
+#custom-cava,
+/* #pulseaudio, */
+/* #bluetooth, */
+/* #cpu, */
+/* #load, */
+/* #memory, */
+#custom-weather
+{
+    padding: 0px 15px 0px 15px;
 }
 
 .modules-left {
@@ -39,61 +114,4 @@ window#waybar {
 
 .modules-right {
     margin-right: 12px;    
-}
-
-#battery,
-#backlight,
-#custom-weather {
-    color: @color5; /* color5 */
-    background-color: @background; /* background */
-    margin: 0 15px 0 0px;
-    padding: 0 15px 0 15px; /* top, right, bottom, left */
-}
-
-#network {
-    color: @color2; /* color2 */
-    background-color: @background; /* background */
-    margin: 0 0px 0 0px;
-    padding: 0 15px 0 15px; /* top, right, bottom, left */
-}
-
-#clock {
-    color: @color3; /* color3 */
-    background-color: @background; /* background */
-    margin: 0 15px 0 0;
-    padding: 0 15px 0 15px;
-}
-
-#network {
-    color: @color4; /* color4 */
-}
-
-#backlight {
-    color: @color5; /* color5 */
-}
-
-#custom-weather {
-    color: @color4; /* color2 */
-    background-color: @background; /* background */
-    padding: 0 15px 0 15px; /* top, right, bottom, left */
-}
-
-#workspaces,
-#tray,
-#custom-emerge,
-#custom-launcher,
-#pulseaudio,
-#clock{
-    color: @color5; /* color5 */
-    background-color: rgba(10, 10, 10, 0.45);
-    margin: 0 5px 0 0px;
-    padding: 0px 1px 0px 3px; /* top, right, bottom, left */
-    border: 0.5px solid #ffffff;
-}
-
-#custom-media {
-    color: @color4; /* color2 */
-    background-color: #ff0; /* background */
-    margin: 0 0px 0 15px;
-    padding: 0 15px 0 15px; /* top, right, bottom, left */
 }
