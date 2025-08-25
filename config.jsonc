@@ -5,12 +5,12 @@
   "position": "top",
   "margin-top": 1,
   "modules-left": [
-    "custom/gh_heatmap",
     "custom/launcher",
     "hyprland/workspaces",
     //"custom/github",
     //"custom/cava",
-    "custom/spotify"
+    "custom/spotify",
+    "custom/gh_heatmap"
   ],
   "modules-center": [
     //"cava",
@@ -46,12 +46,13 @@
     "on-click": "activate"
   },
   "custom/gh_heatmap": {
-    "exec": "sleep 1 & ~/.config/waybar/scripts/weekly_commits LIGHT",
+    //"exec": "sleep 1 & ~/.config/waybar/scripts/weekly_commits.py LIGHT",
+    "exec": "sleep 2 & /home/imcylon/.dotfiles/waybar/scripts/venv/bin/python ~/.config/waybar/scripts/weekly_commits.py LIGHT",
     "return-type": "json",
-    "interval": 2400,
+    "interval": 3600,
     "tooltip": true,
     "on-click": "xdg-open https://github.com/ImCylon",
-    "on-click-right": "~/.config/waybar/scripts/weekly_commits LIGHT"
+    "on-click-right": "~/.config/waybar/scripts/weekly_commits.py LIGHT"
   },
   "custom/github": {
     "format": "{} ",
