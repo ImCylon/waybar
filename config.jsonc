@@ -250,7 +250,7 @@
     "format": "{}",
     "escape": true,
     "return-type": "json",
-    "max-length": 40,
+    "max-length": 30,
     "on-click": "playerctl -p spotify play-pause",
     "on-click-right": "killall spotify",
     "smooth-scrolling-threshold": 10,
