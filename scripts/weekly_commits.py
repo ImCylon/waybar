@@ -141,7 +141,7 @@ for attempt in range(MAX_RETRIES):
             total_contributions += count
 
         output = {
-            "text": " ".join(dots),
+            "text": "  "+ " ".join(dots),
             "tooltip": "\n".join([
                 f"GitHub Contributions ({start_of_week.strftime('%d/%m')} to {today.strftime('%d/%m')})",
                 f"Total: {total_contributions}"

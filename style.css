@@ -1,9 +1,10 @@
 @import url("/home/imcylon/.config/waybar/colors.css");
 
 * {
-    font-family: 'Radio Canada Big', sans-serif;
+    font-family: 'Cascursive Nerd Font', monospace;
+    font-style: italic;
     font-weight: bold;
-    font-size: 19px;
+    font-size: 13px;
 }
 
 window#waybar {
@@ -65,7 +66,7 @@ window#waybar {
 
 #custom-launcher {
     margin: 0px 5px 0px 0px;
-    padding: 5px 15px 5px 15px;
+    padding: 5px 10px 5px 10px;
 }
 
 #workspaces {
@@ -74,14 +75,14 @@ window#waybar {
 
 #workspaces button {
     margin: 0px 0px 0px 0px;
-    padding: 0px 15px 0px 15px;
+    padding: 0px 10px 0px 10px;
     border-width: 0px;
     background: transparent;
 }
 
 #workspaces button.active{
     color: @surface_dim;
-    padding: 0px 20px 0px 20px;
+    padding: 0px 15px 0px 15px;
     background: @surface_tint;
 }
 #custom-spotify {
@@ -107,7 +108,7 @@ window#waybar {
 /* #memory, */
 #custom-weather
 {
-    padding: 0px 15px 0px 15px;
+    padding: 0px 10px 0px 10px;
 }
 
 .modules-left {

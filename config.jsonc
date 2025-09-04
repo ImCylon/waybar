@@ -8,9 +8,8 @@
     "custom/launcher",
     "hyprland/workspaces",
     //"custom/github",
-    //"custom/cava",
     "custom/spotify",
-    "custom/gh_heatmap"
+    "custom/cava"
   ],
   "modules-center": [
     //"cava",
@@ -20,6 +19,7 @@
   ],
   "modules-right": [
     //"custom/cpu_history",
+    "custom/gh_heatmap",
     "group/hardware",
     "group/audio",
     //"custom/media",
@@ -30,8 +30,10 @@
     "tooltip": true,
     "exec": "echo '{\"text\":\"   \",\"tooltip\":\"Drun | Run\"}'",
     "return-type": "json",
-    "on-click": "pkill tofi || sleep 0.15 && tofi-drun -c ~/.config/tofi/tofi.launcher.conf",
-    "on-click-right": "pkill tofi || sleep 0.15 && tofi-run -c ~/.config/tofi/tofi.launcher.conf"
+    //"on-click": "pkill tofi || sleep 0.15 && tofi-drun -c ~/.config/tofi/tofi.launcher.conf",
+    //"on-click-right": "pkill tofi || sleep 0.15 && tofi-run -c ~/.config/tofi/tofi.launcher.conf",
+    "on-click": "pkill tofi || tofi-drun --drun-launch=true",
+    "on-click-right": "pkill tofi || sleep 0.15 && tofi-run"
   },
   "hyprland/workspaces": {
     "ipc_socket": "/run/user/1000/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket.sock",
@@ -47,12 +49,12 @@
   },
   "custom/gh_heatmap": {
     //"exec": "sleep 1 & ~/.config/waybar/scripts/weekly_commits.py LIGHT",
-    "exec": "sleep 2 & /home/imcylon/.dotfiles/waybar/scripts/venv/bin/python ~/.config/waybar/scripts/weekly_commits.py LIGHT",
+    "exec": "/home/imcylon/.dotfiles/waybar/scripts/venv/bin/python ~/.config/waybar/scripts/weekly_commits.py LIGHT",
     "return-type": "json",
     "interval": 3600,
     "tooltip": true,
     "on-click": "xdg-open https://github.com/ImCylon",
-    "on-click-right": "~/.config/waybar/scripts/weekly_commits.py LIGHT"
+    "on-click-right": "sleep 2 & /home/imcylon/.dotfiles/waybar/scripts/venv/bin/python ~/.config/waybar/scripts/weekly_commits.py DARK"
   },
   "custom/github": {
     "format": "{} ",
@@ -63,7 +65,7 @@
   },
   "custom/cava": {
     "format": "{text}",
-    "exec": "~/.dotfiles/waybar/scripts/cava_module.py",
+    "exec": "/home/imcylon/.dotfiles/waybar/scripts/venv/bin/python ~/.dotfiles/waybar/scripts/cava_module.py",
     "return-type": "json",
     "restart-interval": 1
   },
@@ -94,12 +96,12 @@
     }
   },
   "custom/emerge": {
-    "format": " {}  📦 ",
+    "format": "{} 📦",
     "interval": 300,
     "exec": "cat ~/.cache/waybar/emerge-world.txt | wc -l",
-    "on-click": "[[ -s ~/.cache/waybar/emerge-world.txt ]] && dunstify \"UPDATE:\" \"$(cat ~/.cache/waybar/emerge-world.txt)\" || notify-send \"UPDATE:\nSem novas atualizações!\"",
+    "on-click": "/home/imcylon/.config/waybar/scripts/emerge-update.sh",
+    "on-click-middle": "[[ -s ~/.cache/waybar/emerge-world.txt ]] && dunstify \"UPDATE:\" \"$(cat ~/.cache/waybar/emerge-world.txt)\" || notify-send \"UPDATE:\nSem novas atualizações!\"",
     "on-click-right": "alacritty -e zsh -c 'sudo emerge --sync && sudo eix-sync -a && sudo emaint sync -A && sudo emerge -uvaDN --with-bdeps=y @world && sudo emerge --depclean; exec zsh' && $HOME/.dotfiles/waybar/scripts/emerge-update.sh",
-    "on-click-middle": "/home/imcylon/.config/waybar/scripts/emerge-update.sh",
     "signal": 8
   },
   "tray": {
@@ -111,8 +113,8 @@
     //  // }
   },
   "pulseaudio": {
-    "format": "{icon}   {volume}%",
-    "format-bluetooth": "{icon}   {volume}%",
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
     "format-muted": "🔇",
     "format-icons": {
       "default": [
@@ -205,7 +207,7 @@
   },
   "cpu": {
     "interval": 2,
-    "format": "CPU: {usage}% {icon}",
+    "format": "CPU:{usage}% {icon}",
     "format-alt": "CPU: {usage}% {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8}{icon9}{icon10}{icon11}{icon12}{icon13}{icon14}{icon15}",
     "format-icons": [
       "<span color='#00ff00'>▁</span>", // verde claro
@@ -258,7 +260,7 @@
     "exec-if": "pgrep spotify"
   },
   "custom/media": {
-    "format": "  {}",
+    "format": " {}",
     "escape": true,
     "return-type": "json",
     "max-length": 20,

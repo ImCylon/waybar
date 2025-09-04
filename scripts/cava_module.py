@@ -5,7 +5,7 @@ import subprocess
 import tempfile
 import json
 
-BARS_NUMBER = 40
+BARS_NUMBER = 20
 # OUTPUT_BIT_FORMAT = "8bit"
 OUTPUT_BIT_FORMAT = "16bit"
 # RAW_TARGET = "/tmp/cava.fifo"
@@ -26,11 +26,14 @@ config = conpat % (BARS_NUMBER, SENSITIVITY, RAW_TARGET, OUTPUT_BIT_FORMAT)
 bytetype, bytesize, bytenorm = ("H", 2, 65535) if OUTPUT_BIT_FORMAT == "16bit" else ("B", 1, 255)
 
 bar_map = {
-        0: "⠀",
-        1: "⠁",
-        2: "⠃",
-        3: "⠇",
-        4: "⡇"
+        0: "▁",
+        1: "▂",
+        2: "▃",
+        3: "▄",
+        4: "▅",
+        5: "▆",
+        6: "▇",
+        7: "█"
         }
 
 def run():
@@ -53,8 +56,9 @@ def run():
             data = source.read(chunk)
             if len(data) < chunk:
                 break
-            # sample = [i for i in struct.unpack(fmt, data)]  # raw values without norming
+            # sample = [i for i in struct.unpack(fmt, data)] #for i in struct.unpack(fmt, data)])
             sample = "".join([bar_map[int((i / bytenorm) * 4)] for i in struct.unpack(fmt, data)])
+
             
             output = {
                 "text": sample,
