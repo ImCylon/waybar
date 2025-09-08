@@ -8,6 +8,8 @@ OUTPUT_WORLD="$HOME/.cache/waybar/emerge-world.txt"
   # Pacotes no World
 # sudo emaint sync -A > /dev/null 2>&1 && \
 # sudo eix-sync -a > /dev/null 2>&1 && \
+rm $OUTPUT_WORLD
+touch $OUTPUT_WORLD
 sudo emerge --sync > /dev/null 2>&1 && \
 sudo emerge -uDNp @world 2>/dev/null \
   | grep "\[ebuild" | \
